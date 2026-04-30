@@ -1,14 +1,12 @@
 import mysql from "mysql2/promise";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { config } from "./config";
 
 export const pool = mysql.createPool({
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
-    database: process.env.DB_NAME || "DiagnosticosDB",
-    port: parseInt(process.env.DB_PORT || "3306"),
+    host: config.db.host,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database,
+    port: config.db.port,
 });
 
 export const checkConnection = async () => {
