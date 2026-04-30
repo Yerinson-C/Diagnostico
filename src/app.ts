@@ -1,20 +1,16 @@
-import express, { Application } from 'express';
-import cors from 'cors';
-import templatePreguntaRoutes from './api/routes/templatePregunta.routes';
+import express from "express";
+import { pool } from "./db";
 
-const app: Application = express();
+const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Routes
-app.use('/api/diagnostico/template-preguntas', templatePreguntaRoutes);
-
-// Rutas de prueba
-app.get('/api/diagnostico', (req, res) => {
-  res.json({ message: 'Bienvenido al Módulo de Diagnóstico' });
+app.get("/diagnosticos", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM TemplateDiagnosticos");
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener datos" });
+  }
 });
 
 export default app;
+

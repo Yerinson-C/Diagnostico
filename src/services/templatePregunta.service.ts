@@ -16,6 +16,10 @@ export class TemplatePreguntaService {
     return await this.repository.findById(id);
   }
 
+  async getPreguntaWithOpciones(id: number): Promise<TemplatePregunta | null> {
+    return await this.repository.findByIdWithOpciones(id);
+  }
+
   async createPregunta(preguntaData: TemplatePregunta): Promise<TemplatePregunta> {
     // Aquí se podrían agregar validaciones de negocio
     if (!preguntaData.pregunta || !preguntaData.tipo) {
@@ -32,5 +36,9 @@ export class TemplatePreguntaService {
 
   async deletePregunta(id: number): Promise<boolean> {
     return await this.repository.delete(id);
+  }
+
+  async duplicatePregunta(id: number): Promise<TemplatePregunta | null> {
+    return await this.repository.duplicate(id);
   }
 }

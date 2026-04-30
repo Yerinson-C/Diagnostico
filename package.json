@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "setup-db": "ts-node src/setup_db.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,8 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
     "express": "^4.22.1",
-    "mysql2": "^3.22.2"
+    "mysql2": "^3.22.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -24,5 +26,13 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   },
-  "type": "commonjs"
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yerinson-C/Diagnostico.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yerinson-C/Diagnostico/issues"
+  },
+  "homepage": "https://github.com/Yerinson-C/Diagnostico#readme"
 }

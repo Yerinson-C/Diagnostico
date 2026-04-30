@@ -1,4 +1,8 @@
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+// Cargar variables de entorno
+dotenv.config();
 
 // Configuración de la base de datos usando variables de entorno o valores por defecto
 const dbConfig = {

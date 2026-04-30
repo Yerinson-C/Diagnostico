@@ -20,7 +20,14 @@ export class TemplatePreguntaController {
   getById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = parseInt(req.params.id, 10);
-      const pregunta = await this.service.getPreguntaById(id);
+      const includeOpciones = req.query.includeOpciones === 'true';
+      
+      let pregunta;
+      if (includeOpciones) {
+        pregunta = await this.service.getPreguntaWithOpciones(id);
+      } else {
+        pregunta = await this.service.getPreguntaById(id);
+      }
       
       if (!pregunta) {
          res.status(404).json({ success: false, message: 'Pregunta no encontrada' });
@@ -73,6 +80,22 @@ export class TemplatePreguntaController {
       }
       
       res.json({ success: true, message: 'Pregunta eliminada correctamente' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  duplicate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const duplicated = await this.service.duplicatePregunta(id);
+      
+      if (!duplicated) {
+        res.status(404).json({ success: false, message: 'Pregunta no encontrada para duplicar' });
+        return;
+      }
+      
+      res.status(201).json({ success: true, data: duplicated });
     } catch (error) {
       next(error);
     }
