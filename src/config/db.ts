@@ -8,7 +8,7 @@ dotenv.config();
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
+  password: process.env.DB_PASSWORD || 'yerinsonkbr',
   database: process.env.DB_NAME || 'aqualub_db',
   port: parseInt(process.env.DB_PORT || '3306', 10),
   waitForConnections: true,

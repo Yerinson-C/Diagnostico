@@ -11,12 +11,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+import path from "path";
+
 // Rutas de la API
 app.use("/api", apiRoutes);
 
-// Ruta de bienvenida
-app.get("/", (req, res) => {
-    res.json({ message: "Bienvenido a la API de Diagnósticos" });
+// Servir frontend estático (ubicado en ../../../interfaz/dist relativo a dist/app.js)
+const frontendPath = path.join(__dirname, "../../../interfaz/dist");
+app.use(express.static(frontendPath));
+
+// Cualquier otra petición que no sea de la API devuelve el index.html del frontend
+app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 export default app;
